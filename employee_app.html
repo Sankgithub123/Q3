@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee App</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Employee App</h2>
+  
+  <form id="employeeForm">
+    <label for="employeeName">Employee Name:</label>
+    <input type="text" id="employeeName" required minlength="5"><br>
+
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob" required><br>
+
+    <label>Gender:</label>
+    <input type="radio" name="gender" value="Male" id="male"> <label for="male">Male</label>
+    <input type="radio" name="gender" value="Female" id="female"> <label for="female">Female</label><br>
+
+    <label>Languages:</label>
+    <input type="checkbox" name="language" value="Hindi" id="hindi"> <label for="hindi">Hindi</label>
+    <input type="checkbox" name="language" value="English" id="english"> <label for="english">English</label>
+    <input type="checkbox" name="language" value="Marathi" id="marathi"> <label for="marathi">Marathi</label><br>
+
+    <button type="button" onclick="showEmployeeDetails()">Show Employee Details</button>
+  </form>
+
+  <div id="employeeDetails"></div>
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script>
+    function showEmployeeDetails() {
+      const employeeName = $('#employeeName').val();
+      const dob = $('#dob').val();
+      const gender = $('input[name="gender"]:checked').val();
+      const languages = $('input[name="language"]:checked').map(function() {
+        return this.value;
+      }).get().join(', ');
+
+      if (employeeName.length < 5) {
+        alert('Employee name must be at least 5 characters.');
+        return;
+      }
+
+      const detailsTable = `
+        <h3>Employee Details</h3>
+        <table>
+          <tr>
+            <th>Employee Name</th>
+            <th>Date of Birth</th>
+            <th>Gender</th>
+            <th>Languages</th>
+          </tr>
+          <tr>
+            <td>${employeeName}</td>
+            <td>${dob}</td>
+            <td>${gender}</td>
+            <td>${languages}</td>
+          </tr>
+        </table>
+      `;
+
+      $('#employeeDetails').html(detailsTable);
+    }
+  </script>
+
+</body>
+</html>
